@@ -1,40 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🚀 Fullstack Post App with C++ Integration
 
-## Getting Started
+A fully functional full-stack application built using **Next.js**, **Tailwind CSS**, **PostgreSQL**, and a Dockerized **C++ backend**. This app demonstrates core full-stack development, C++ integration, and database persistence.
 
-First, run the development server:
+---
+
+## ✅ Features Implemented
+
+- 🌐 **Frontend**:
+  - Built with Next.js and Tailwind CSS
+  - Landing page with a paginated table of posts
+  - Post detail page with editable title
+  - Create new post using modal dialog
+  - Responsive and mobile-optimized UI
+
+- ⚙️ **Backend (API Routes)**:
+  - `/api/posts` (GET, POST) to interact with PostgreSQL
+  - POST route accepts data and saves it with analysis
+
+- 🧠 **C++ Logic Integration**:
+  - Dockerized Crow-based C++ API (`/analyze`)
+  - Performs real-time word count on post body
+  - Returns JSON to Next.js backend
+
+- 💾 **Database**:
+  - PostgreSQL database set up locally
+  - Prisma ORM with `Post` model (`title`, `body`, `wordCount`, `createdAt`)
+  - Connected via `.env` configuration
+
+- 🖥️ **Working End-to-End**:
+  - Posts fetched from DB on load
+  - New posts analyzed by C++ and saved
+  - UI updates immediately (optimistic)
+
+---
+
+## 🖼 Architecture Diagram
+
+
+
+---
+
+## 🛠 Local Setup
 
 ```bash
+git clone https://github.com/yourusername/fullstack-post-app.git
+cd fullstack-post-app
+npm install
+Configure Environment
+Create .env with:
+
+env
+Copy
+Edit
+DATABASE_URL="postgresql://youruser:yourpass@localhost:5432/yourdb?schema=public"
+Set Up Database
+bash
+Copy
+Edit
+npx prisma db push
+npx prisma generate
+Start C++ Backend
+bash
+Copy
+Edit
+cd cpp-backend
+docker build -t cpp-api .
+docker run -p 8080:8080 cpp-api
+Start Next.js App
+bash
+Copy
+Edit
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+📁 Folder Structure
+bash
+Copy
+Edit
+/pages
+  /index.tsx         ← Landing page with post list
+  /post/[id].js      ← Post detail & analysis
+  /api/posts         ← API route to DB
+/components
+  /CreatePostModal   ← Modal for new post
+/lib
+  /prisma.js         ← Prisma client setup
+/cpp-backend
+  /main.cpp          ← Crow API server (word count)
+  /Dockerfile        ← Build and run C++ service
+/prisma
+  /schema.prisma     ← Postgres DB schema
+✨ Tech Used
+Frontend: Next.js, Tailwind CSS, React
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend: Node.js API Routes (Next.js)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Database: PostgreSQL, Prisma ORM
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+C++ API: Crow Framework, Docker
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
