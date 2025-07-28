@@ -18,18 +18,16 @@ RUN curl -L https://github.com/chriskohlhoff/asio/archive/refs/tags/asio-1-28-1.
     cp -r asio-asio-1-28-1/asio/include/* /usr/local/include/ && \
     rm -rf asio.tar.gz asio-asio-1-28-1
 
-# Step 3: Set working directory
+# Step 3: Download Crow single header
 WORKDIR /app
-
-# Step 4: Download Crow single header
 RUN curl -L https://github.com/CrowCpp/Crow/releases/latest/download/crow_all.h -o crow_all.h
 
-# Step 5: Copy C++ source code
+# Step 4: Copy your C++ source
 COPY main.cpp .
 
-# Step 6: Compile the app
+# Step 5: Compile the server
 RUN g++ main.cpp -o server -std=c++17 -lpthread -lboost_system
 
-# Step 7: Expose port and run the server
+# Step 6: Expose port and run
 EXPOSE 8080
 CMD ["./server"]
